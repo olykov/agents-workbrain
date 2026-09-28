@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workbrain project manifest",
+  "type": "object",
+  "required": ["schema_version", "project_id", "name", "slug", "status", "vault", "created", "updated"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "project_id": { "type": "string", "pattern": "^PRJ-[A-Z0-9]+(?:-[A-Z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$" },
+    "status": { "enum": ["active", "paused", "archived"] },
+    "vault": { "const": "workbrain" },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "workspaces": { "type": "array", "items": { "type": "string" } },
+    "created": { "type": "string", "format": "date-time" },
+    "updated": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": true
+}

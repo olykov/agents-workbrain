@@ -1,0 +1,20 @@
+{
+  "name": "agents-workbrain",
+  "interface": {
+    "displayName": "Agents Workbrain"
+  },
+  "plugins": [
+    {
+      "name": "agents-workbrain",
+      "source": {
+        "source": "local",
+        "path": "./plugins/agents-workbrain"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

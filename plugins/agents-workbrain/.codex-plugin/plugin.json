@@ -1,0 +1,18 @@
+{
+  "name": "agents-workbrain",
+  "version": "1.0.0",
+  "description": "Create and maintain a durable local Workbrain vault for agent-assisted work.",
+  "author": {
+    "name": "Agents Workbrain contributors"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agents Workbrain",
+    "shortDescription": "Durable task context for agent-assisted work.",
+    "longDescription": "Initialize, organize, validate and safely route work inside a local Workbrain vault.",
+    "developerName": "Agents Workbrain contributors",
+    "category": "Productivity",
+    "capabilities": ["Skills", "Hooks"],
+    "defaultPrompt": "Initialize my Workbrain vault and explain the structure."
+  }
+}

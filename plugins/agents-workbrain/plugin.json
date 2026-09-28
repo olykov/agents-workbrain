@@ -1,0 +1,28 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agents-workbrain",
+  "version": "1.0.0",
+  "description": "Create and maintain a durable local Workbrain vault for agent-assisted work.",
+  "author": {
+    "name": "Agents Workbrain contributors"
+  },
+  "license": "MIT",
+  "keywords": ["workbrain", "tasks", "obsidian", "productivity", "agents"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Agents Workbrain",
+        "shortDescription": "Durable task context for agent-assisted work.",
+        "longDescription": "Initialize, organize, validate and safely route work inside a local Workbrain vault.",
+        "developerName": "Agents Workbrain contributors",
+        "category": "Productivity",
+        "capabilities": ["Skills", "Hooks"],
+        "defaultPrompt": [
+          "Initialize my Workbrain vault and explain the structure.",
+          "Create a project and task workspace in my Workbrain vault.",
+          "Review my Workbrain inbox and propose a routing plan."
+        ]
+      }
+    }
+  }
+}

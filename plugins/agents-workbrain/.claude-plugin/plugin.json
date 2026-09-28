@@ -1,0 +1,8 @@
+{
+  "name": "agents-workbrain",
+  "version": "1.0.0",
+  "description": "Create and maintain a durable local Workbrain vault for agent-assisted work.",
+  "author": {
+    "name": "Agents Workbrain contributors"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "agents-workbrain",
+  "description": "Agents Workbrain plugin marketplace.",
+  "owner": {
+    "name": "Agents Workbrain contributors"
+  },
+  "plugins": [
+    {
+      "name": "agents-workbrain",
+      "source": "./plugins/agents-workbrain"
+    }
+  ]
+}

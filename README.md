@@ -65,6 +65,28 @@ The initializer creates:
 Next, ask it to create one project and one real task. Creation commands are dry-run by default and
 write only with `--apply` after review.
 
+## Optional Obsidian interface
+
+The agent should offer [Obsidian from the official download page](https://obsidian.md/download) as
+an optional visual interface. After installation, open the existing `~/workbrain` folder as an
+Obsidian vault; do not create a second vault or move the files.
+
+For a visual project and task board, optionally install
+[Agents Workbrain Kanban](https://github.com/olykov/agents-workbrains-obsidian-plugin). It reads and
+updates the same canonical Markdown files; Agents Workbrain does not require it.
+
+## Clean-install test prompt
+
+Use this prompt from a clean macOS account:
+
+> Install Agents Workbrain from `https://github.com/olykov/agents-workbrain`. Show the dry-run,
+> initialize the single vault at `~/workbrain` after approval, and create one project with one real
+> task. Perform a small file-based task, record its status, acceptance criteria, evidence, and a
+> dated progress comment, then validate the task. Start a new session and confirm that the Workbrain
+> context is loaded again. Offer the official Obsidian app as an optional interface, explain how to
+> open `~/workbrain` as an existing vault, and offer the optional Agents Workbrain Kanban plugin
+> linked in this README.
+
 ## Direct commands
 
 Run these from `plugins/agents-workbrain`:

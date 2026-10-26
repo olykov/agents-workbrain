@@ -54,7 +54,7 @@ try {
     '--type', 'documentation', '--project', 'demo', '--apply',
   ]);
   run(process.execPath, [
-    resolve(scripts, 'task-create.mjs'), '--id', '../BAD', '--title', 'Bad task',
+    resolve(scripts, 'task-create.mjs'), '--id', '../INVALID', '--title', 'Invalid task',
     '--type', 'documentation', '--project', 'demo',
   ], 1);
 

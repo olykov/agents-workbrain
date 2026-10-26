@@ -1,13 +1,13 @@
 import { readFileSync } from 'node:fs';
 
 export const PROJECT_ID = /^PRJ-[A-Z0-9]+(?:-[A-Z0-9]+)*$/;
-export const TASK_ID = /^[A-Z][A-Z0-9]*-[A-Z0-9]+(?:-[a-z0-9]+)*$/;
+export const TASK_ID = /^[A-Z]+-\d{4,}(?:-\d{3}(?:-\d{2})?)?$/;
 export const SLUG = /^[a-z0-9]+(?:_[a-z0-9]+)*$/;
 export const TASK_TYPES = new Set([
   'research', 'discovery', 'feature', 'bug-fix', 'refactor', 'chore', 'incident', 'documentation',
 ]);
 export const TASK_STATUSES = new Set([
-  'backlog', 'todo', 'in_progress', 'review', 'done', 'blocked', 'cancelled',
+  'backlog', 'todo', 'in_progress', 'review', 'Blocked', 'Closed', 'Cancelled',
 ]);
 
 const CYRILLIC = {
@@ -55,7 +55,7 @@ export function parseFrontmatter(path) {
     const [, key, raw = ''] = field;
     const value = raw.trim();
     if (value === 'null') data[key] = null;
-    else if (value.startsWith('[')) {
+    else if (value.startsWith('[') || value.startsWith('{')) {
       try { data[key] = JSON.parse(value); } catch { data[key] = undefined; }
     } else if (value.startsWith('"')) {
       try { data[key] = JSON.parse(value); } catch { data[key] = undefined; }

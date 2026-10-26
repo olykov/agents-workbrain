@@ -8,22 +8,30 @@ priority: medium
 type: "{{TYPE}}"
 labels: []
 assignee: null
-reporter: "{{REPORTER}}"
+reporter: null
+model: null
 created: "{{NOW}}"
 updated: "{{NOW}}"
 start_date: null
 finish_date: null
-parent: null
-projects: {{PROJECTS}}
+epic: null
+parent: {{PARENT}}
+project: {{PROJECT}}
 external_refs: []
+relations: {"depends_on":[],"blocks":[],"related":[]}
+implementation: {"workspaces":[]}
+commits: []
+tests: []
+design_reports: []
+review_reports: []
 completion_evidence: []
+review: {}
+backlog_ref: ""
 ---
 
 # {{ID}} — {{TITLE}}
 
 ## Problem
-
-## Sources
 
 ## Plan
 

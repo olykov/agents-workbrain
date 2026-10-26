@@ -1,67 +1,40 @@
 ---
 name: workbrain-tasks
-description: Initialize, create, validate, query, or maintain project and task workspaces in the local Workbrain vault at ~/workbrain. Use for Workbrain setup, project.md, task.md, task lifecycle, task-local raw material, project context, relations, and evidence.
+description: Initialize, create, validate, query, close, archive, or maintain project and task workspaces in the local Workbrain vault at ~/workbrain.
 ---
 
 # Workbrain Tasks
 
-Work only with the single vault at `~/workbrain`. Resolve the path through the bundled
-`scripts/vault.mjs`; do not redirect these scripts to another folder.
+Work only with `~/workbrain`; resolve it through `scripts/vault.mjs`. Read vault `AGENTS.md` before changing it. If missing, show the dry-run from `scripts/init-workbrain.mjs` and apply only after the user approves.
 
-## First use
+## Model
 
-If `~/workbrain/AGENTS.md` is missing, run the bundled `scripts/init-workbrain.mjs` without
-`--apply`, show the plan, and apply it only after the user approves. Initialization refuses to
-overwrite existing control files.
+- Projects: `02_work/<project>/project.md`.
+- Active tasks: `02_work/<project>/tasks/<task>/task.md`; unassigned tasks use `_no_project`.
+- Individually archived tasks: `archive/<project>/<task>/task.md`.
+- Archived project: move its entire directory from `02_work/<project>/` to `archive/<project>/`; preserve every task status. Exclude all archive tasks from open counts.
+- A task has one scalar `project:` and optional scalar `parent:`. Find children by ID in both active and archive. Use `project-context.mjs` instead of a manual task list.
+- Root IDs use `PREFIX-0001` or a longer numeric sequence; child IDs add `-001`, grandchildren add `-01`. Maximum two child levels. Externally assigned IDs must be real and must not be fabricated.
+- Keep task-specific `sources/`, `meetings/`, `notes/`, or `results/` only when needed. Keep code and runtime files outside the vault. Preserve raw material unchanged.
 
-After initialization, read `AGENTS.md` or `CLAUDE.md` before changing the vault.
+Read `references/task-schema.json` before creating tasks.
 
-## Canonical model
+## Progress and closure
 
-- A project is `02_projects/<slug>/project.md`.
-- A task is `02_tasks/<slug>/task.md`.
-- Every task has at least one project ID in `projects[]`; membership is not maintained manually in
-  a project file.
-- Resolve project membership with `scripts/project-context.mjs --project <ID>`.
-- Keep task-specific material in `sources/`, `meetings/`, `evidence/`, or `notes/`.
-- Keep application code and runtime artifacts outside the vault and link them from the task note.
-- Keep raw material unchanged. Read `references/raw-routing.md` before promoting a source into the
-  knowledge base.
+Append a dated comment after meaningful progress; keep acceptance criteria, status, links, tests and commits aligned with actual work. `Closed` means set status and archive the task folder together. `Cancelled` also archives it; record a reason. `Blocked` stays in the active tree. Do not leave a terminal task in the active tree. An archived project can contain tasks with open statuses; this is not a status rewrite.
 
-Read `references/task-schema.json` before creating or validating tasks.
+At 1000 `task.md` lines and each additional 500 lines, tell the user compression is due and propose the exact scope. After approval, preserve the original history verbatim in `notes/history.md`; summarize older entries in time buckets appropriate to their density (day, week or month). Keep original chronology searchable. Never silently compress or discard comments. Before finishing, update the relevant task with completed, pending and blocked work.
 
-## Progress discipline
+## Safety and commands
 
-- Before material work, identify the relevant task or create one after the user approves the dry-run.
-- Keep lifecycle fields and acceptance criteria synchronized with the real state of work.
-- Append a dated comment after meaningful progress; never rewrite earlier comments.
-- Record evidence, links, outputs, tests or commits that make completion verifiable.
-- Before the final response, update the task with what completed, remains pending or became blocked.
-- Never mark a task `done` without completion evidence.
-
-## Safety
-
-- Project and task creation are dry-run by default; write only with `--apply` after review.
-- Validation and project context are read-only.
-- Never delete or rewrite raw material without explicit approval.
-- Do not initialize Git, create a remote, push, publish, send or deploy unless the user explicitly
-  requests that separate action.
-
-## Commands
-
-Resolve every command from this skill directory; the plugin root is two levels above it.
+Creation is dry-run by default and writes only with `--apply`. Project context and validation are read-only. Do not delete or rewrite raw material without approval. Do not initialize Git, push, publish, send or deploy unless separately requested.
 
 ```bash
 node "<skill-dir>/../../scripts/init-workbrain.mjs"
 node "<skill-dir>/../../scripts/init-workbrain.mjs" --apply
-node "<skill-dir>/../../scripts/project-create.mjs" --id PRJ-DEMO --name "Demo project"
 node "<skill-dir>/../../scripts/project-create.mjs" --id PRJ-DEMO --name "Demo project" --apply
-node "<skill-dir>/../../scripts/task-create.mjs" --id DEMO-1 --title "First task" --type documentation --projects PRJ-DEMO
-node "<skill-dir>/../../scripts/task-create.mjs" --id DEMO-1 --title "First task" --type documentation --projects PRJ-DEMO --apply
+node "<skill-dir>/../../scripts/task-create.mjs" --id DEMO-0001 --title "First task" --type documentation --project demo --apply
+node "<skill-dir>/../../scripts/task-create.mjs" --title "Child task" --type documentation --project demo --parent DEMO-0001 --apply
 node "<skill-dir>/../../scripts/project-context.mjs" --project PRJ-DEMO --format json
 node "<skill-dir>/../../scripts/task-validate.mjs" --format text
 ```
-
-`--projects` accepts comma-separated project IDs. `--type` accepts
-`research|discovery|feature|bug-fix|refactor|chore|incident|documentation`. New tasks use
-`status: todo`.

@@ -47,15 +47,15 @@ try {
   const hook = run(process.execPath, [resolve(pluginRoot, 'hooks', 'session_context.mjs')]);
   if (!hook.includes('(ready)')) throw new Error(hook);
 
-  run(process.execPath, [resolve(scripts, 'project-create.mjs'), '--id', 'PRJ-DEMO', '--name', 'Demo project', '--apply']);
+  run(process.execPath, [resolve(scripts, 'project-create.mjs'), '--id', 'PRJ-DEMO', '--name', 'Demo project', '--slug', 'demo', '--apply']);
   run(process.execPath, [resolve(scripts, 'project-create.mjs'), '--id', 'PRJ-WRONG-', '--name', 'Wrong'], 1);
   run(process.execPath, [
-    resolve(scripts, 'task-create.mjs'), '--id', 'DEMO-1', '--title', 'First task',
-    '--type', 'documentation', '--projects', 'PRJ-DEMO', '--apply',
+    resolve(scripts, 'task-create.mjs'), '--id', 'DEMO-0001', '--title', 'First task',
+    '--type', 'documentation', '--project', 'demo', '--apply',
   ]);
   run(process.execPath, [
     resolve(scripts, 'task-create.mjs'), '--id', '../BAD', '--title', 'Bad task',
-    '--type', 'documentation', '--projects', 'PRJ-DEMO',
+    '--type', 'documentation', '--project', 'demo',
   ], 1);
 
   const validation = run(process.execPath, [resolve(scripts, 'task-validate.mjs')]);
@@ -63,10 +63,10 @@ try {
   const context = JSON.parse(run(process.execPath, [
     resolve(scripts, 'project-context.mjs'), '--project', 'PRJ-DEMO', '--format', 'json',
   ]));
-  if (context.task_count !== 1 || context.tasks[0].id !== 'DEMO-1') throw new Error(JSON.stringify(context));
+  if (context.task_count !== 1 || context.tasks[0].id !== 'DEMO-0001' || context.active_count !== 1) throw new Error(JSON.stringify(context));
 
-  const task = readFileSync(resolve(home, 'workbrain', '02_tasks', 'demo_1', 'task.md'), 'utf8');
-  if (!task.includes('reporter: "Test User"')) throw new Error(task);
+  const task = readFileSync(resolve(home, 'workbrain', '02_work', 'demo', 'tasks', 'demo_0001', 'task.md'), 'utf8');
+  if (!task.includes('project: "demo"')) throw new Error(task);
 
   const progressSession = 'progress-session';
   const materialChange = runProgressHook({
@@ -88,7 +88,7 @@ try {
     hook_event_name: 'PostToolUse',
     session_id: progressSession,
     tool_name: 'Write',
-    tool_input: { file_path: resolve(home, 'workbrain', '02_tasks', 'demo_1', 'task.md') },
+    tool_input: { file_path: resolve(home, 'workbrain', '02_work', 'demo', 'tasks', 'demo_0001', 'task.md') },
   });
   const cleanStop = runProgressHook({
     hook_event_name: 'Stop',

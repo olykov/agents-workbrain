@@ -4,7 +4,7 @@ project_id: "{{PROJECT_ID}}"
 name: "{{NAME}}"
 slug: "{{SLUG}}"
 status: active
-vault: "{{VAULT}}"
+vault: workbrain
 aliases: []
 workspaces: []
 created: "{{NOW}}"
@@ -17,6 +17,7 @@ updated: "{{NOW}}"
 
 ## Agent context
 
-Task membership is stored in task frontmatter `projects[]`; do not maintain a manual task list here.
+Active tasks: `02_work/{{SLUG}}/tasks/`. Archived tasks: `archive/{{SLUG}}/`.
+Task membership follows the physical folder and scalar `project: {{SLUG}}`.
 
 ## Notes

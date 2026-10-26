@@ -8,6 +8,6 @@ Use `01_knowledge_base/00_system/routing_rules.md` first when available.
 
 | Input type | Raw target |
 | --- | --- |
-| Material with a known task | `02_tasks/<task_slug>/sources/` or `meetings/` |
+| Material with a known task | `02_work/<project>/tasks/<task>/sources/` or `meetings/` |
 | Reusable source | reviewed `01_knowledge_base/` location |
 | Unknown | keep in `00_inbox/` |

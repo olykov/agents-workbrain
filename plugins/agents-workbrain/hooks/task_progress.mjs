@@ -19,7 +19,7 @@ function statePath(sessionId) {
 
 function isTaskUpdate(input) {
   const serialized = JSON.stringify(input.tool_input || {});
-  return /(?:^|[\\/])02_tasks[\\/][^"']+[\\/]task\.md(?:["']|$)/.test(serialized);
+  return /(?:^|[\\/])(?:02_work[\\/][^\\/"']+[\\/]tasks|archive[\\/][^\\/"']+)[\\/][^"']+[\\/]task\.md(?:["']|$)/.test(serialized);
 }
 
 function isMaterialChange(input) {

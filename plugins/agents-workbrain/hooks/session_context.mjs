@@ -5,7 +5,7 @@ import { vaultPath } from '../scripts/vault.mjs';
 
 const eventName = 'SessionStart';
 const VAULT = vaultPath();
-const required = ['AGENTS.md', 'CLAUDE.md', '02_projects', '02_tasks'];
+const required = ['AGENTS.md', 'CLAUDE.md', '02_work', 'archive'];
 const missing = required.filter((entry) => !existsSync(resolve(VAULT, entry)));
 const state = missing.length
   ? `not initialized; missing ${missing.join(', ')}`

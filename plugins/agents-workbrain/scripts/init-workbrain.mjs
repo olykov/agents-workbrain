@@ -7,7 +7,7 @@ import { parseArgs } from './lib.mjs';
 const args = parseArgs(process.argv.slice(2));
 const vault = vaultPath();
 const templates = resolve(import.meta.dirname, '..', 'templates');
-const directories = ['00_inbox', '01_knowledge_base/00_system', '02_projects', '02_tasks', '99_archive'];
+const directories = ['00_inbox', '01_knowledge_base/00_system', '02_work/_no_project/tasks', 'archive'];
 const files = [
   ['README.md', 'vault_readme.md'],
   ['AGENTS.md', 'AGENTS.md'],

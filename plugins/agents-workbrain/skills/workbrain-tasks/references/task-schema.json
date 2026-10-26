@@ -2,31 +2,174 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Workbrain task manifest",
   "type": "object",
-  "required": ["schema_version", "id", "title", "slug", "status", "priority", "type", "projects", "created", "updated"],
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "slug",
+    "status",
+    "priority",
+    "type",
+    "project",
+    "created",
+    "updated"
+  ],
   "properties": {
-    "schema_version": { "const": 1 },
-    "id": { "type": "string", "pattern": "^[A-Z][A-Z0-9]*-[A-Z0-9]+(?:-[a-z0-9]+)*$" },
-    "title": { "type": "string", "minLength": 1 },
-    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$" },
-    "status": { "enum": ["backlog", "todo", "in_progress", "review", "done", "blocked", "cancelled"] },
-    "priority": { "enum": ["critical", "high", "medium", "low"] },
-    "type": { "enum": ["research", "discovery", "feature", "bug-fix", "refactor", "chore", "incident", "documentation"] },
-    "labels": { "type": "array", "items": { "type": "string" } },
-    "assignee": { "type": ["string", "null"] },
-    "reporter": { "type": "string" },
-    "created": { "type": "string", "format": "date-time" },
-    "updated": { "type": "string", "format": "date-time" },
-    "start_date": { "type": ["string", "null"] },
-    "finish_date": { "type": ["string", "null"] },
-    "parent": { "type": ["string", "null"], "pattern": "^[A-Z][A-Z0-9]*-[A-Z0-9]+(?:-[a-z0-9]+)*$" },
-    "projects": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": { "type": "string", "pattern": "^PRJ-[A-Z0-9]+(?:-[A-Z0-9]+)*$" }
+    "schema_version": {
+      "const": 1
     },
-    "external_refs": { "type": "array" },
-    "completion_evidence": { "type": "array" }
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z]+-\\d{4,}(?:-\\d{3}(?:-\\d{2})?)?$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"
+    },
+    "status": {
+      "enum": [
+        "backlog",
+        "todo",
+        "in_progress",
+        "review",
+        "Blocked",
+        "Closed",
+        "Cancelled"
+      ]
+    },
+    "priority": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "type": {
+      "enum": [
+        "research",
+        "discovery",
+        "feature",
+        "bug-fix",
+        "refactor",
+        "chore",
+        "incident",
+        "documentation"
+      ]
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assignee": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reporter": {
+      "type": "string"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "start_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "finish_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "parent": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]+-\\d{4,}(?:-\\d{3}(?:-\\d{2})?)?$"
+    },
+    "external_refs": {
+      "type": "array"
+    },
+    "completion_evidence": {
+      "type": "array"
+    },
+    "project": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$"
+    },
+    "epic": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "relations": {
+      "type": "object",
+      "properties": {
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blocks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "related": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "properties": {
+        "workspaces": {
+          "type": "array"
+        }
+      }
+    },
+    "commits": {
+      "type": "array"
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "not": {
+    "anyOf": [
+      {
+        "required": [
+          "projects"
+        ]
+      },
+      {
+        "required": [
+          "additional_projects"
+        ]
+      }
+    ]
+  }
 }
